@@ -48,24 +48,24 @@ public class DirichletLM extends WeightingModel {
 	 */
 	public DirichletLM() {
 		super();
-		c = 600;
+		c = 600.0d;
 	}
 
-	public DirichletLM(double mu) {
+	public DirichletLM(double c) {
 		super();
-		c = mu;
+		this.c = c;
 	}
 
-	@Override
+/*	@Override
 	public double score(double tf, double docLength) {
     double nu = tf + c + (super.termFrequency / numberOfTokens);
     double den = docLength + c;
 		return WeightingModelLibrary.log(nu/den);
-	}
-
-/*	public double score(double tf, double docLength) {
-		return WeightingModelLibrary.log(1 + (tf/(c * (super.termFrequency / numberOfTokens))) ) + WeightingModelLibrary.log(c/(docLength+c));
 	} */
+
+	public double score(double tf, double docLength) {
+		return WeightingModelLibrary.log(1 + (tf/(c * (super.termFrequency / numberOfTokens))) ) + WeightingModelLibrary.log(c/(docLength+c));
+	}
 
 	@Override
 	public String getInfo() {
